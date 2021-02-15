@@ -15,9 +15,9 @@ public static class RandomUtil
     ///
     /// The polynomial is order 2 i.e. x^2
     /// </summary>
-    /// <param name="min"></param>
-    /// <param name="max"></param>
-    /// <returns></returns>
+    /// <param name="min">Minimum value to return (inclusive)</param>
+    /// <param name="max">Maximum value to return (exclusive)</param>
+    /// <returns>Number between `min` (inclusive) and `max` (exclusive)</returns>
     public static float Polynomial(float min = 0, float max = 1)
     {
         // Validation
@@ -44,9 +44,9 @@ public static class RandomUtil
     ///
     /// Technically speaking, the extent of the distribution is 3 standard deviations.
     /// </summary>
-    /// <param name="min"></param>
-    /// <param name="max"></param>
-    /// <returns></returns>
+    /// <param name="min">Minimum value to return (inclusive)</param>
+    /// <param name="max">Maximum value to return (exclusive)</param>
+    /// <returns>Number between `min` (inclusive) and `max` (exclusive)</returns>
     public static float Guassian(float min = 0, float max = 1)
     {
         // Validation
@@ -84,14 +84,19 @@ public static class RandomUtil
     /// <param name="xMax">Maximum x value of the region to sample from</param>
     /// <param name="yMin">Minimum y value of the region to sample from</param>
     /// <param name="yMax">Maximum y value of the region to sample from</param>
-    /// <returns></returns>
+    /// <returns>A random number between `xMin` (inclusive) and `xMax` (exclusive), weighted by `fn`</returns>
     private static float SampleRegion(Func<float, float> fn, float xMin, float xMax, float yMin, float yMax)
     {
         int i = 0;
-        float x, y, result;
+        float x, y = 1, result = 0;
         do
         {
             x = Random.Range(xMin, xMax);
+
+            // Ensure we never return `xMax` as our result
+            //  as we promised that `xMax` was exclusive
+            if (x == xMax) continue;
+
             y = Random.Range(yMin, yMax);
             result = fn(x);
             i++;
