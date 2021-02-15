@@ -2,6 +2,8 @@
 
 This is a small repo that exists purely to house a utility for generating weighted pseudo-random numbers for use with Unity.
 
+This repo contains a small demo project that visualises the outputs of the Random utility. You can tweak some of the parameters while the visualisation is running to see how it affects the output.
+
 For what it's worth it would be trivial to alter this for use with regular .NET C#, it just uses the native Unity implementation of `Random` and `Mathf` under the hood, which could be replaced with `System.Random` and `System.Math`.
 
 ## Including in your project
