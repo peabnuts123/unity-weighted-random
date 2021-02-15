@@ -31,6 +31,7 @@ public class RandomTest : MonoBehaviour
     // Private state
     private float[] weights;
     private RandomType? lastFrameRandomType;
+    private int? lastFrameNumGraphBuckets;
 
     void Start()
     {
@@ -50,6 +51,13 @@ public class RandomTest : MonoBehaviour
             ResetGraph();
         }
         this.lastFrameRandomType = this.randomType;
+
+        // Reset graph if numGraphBuckets changes
+        if (this.lastFrameNumGraphBuckets.HasValue && this.lastFrameNumGraphBuckets != this.numGraphBuckets)
+        {
+            ResetGraph();
+        }
+        this.lastFrameNumGraphBuckets = this.numGraphBuckets;
 
         // Weighted random sample between min,max - based on selected type of random
         int sample;
